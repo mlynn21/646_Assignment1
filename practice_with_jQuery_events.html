@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Practice with jQuery Events</title>
+  <link href="styles/normalize.css" type="text/css" rel="stylesheet">
+  <link href="styles/styles.css" type="text/css" rel="stylesheet">
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src='js/jquery-3.6.0.min.js'></script>
+    <style> button { margin:5px} </style>
+  <script>
+
+	$(function() { 
+        //STEPS 1-4
+        $('#button1').click(function() {
+           alert('The button has been clicked - .click method')});
+
+        $('#button2').bind("click", function() {
+            alert('The second button has been clicked - .bind method.')});
+
+        $('#button3').on('click', function() {
+            alert('The third button has been clicked - .on method.')});
+
+        $('body').on({ click:function() { 
+            window.alert('One of the paired buttons has been clicked- single handler .on method');
+        }}, ".pairedButton");
+
+        //STEP 5
+        // $('#div1').css('width','400px').css('height','400px').css('background-color','thistle')
+
+        // $('#div1').on({
+        //     mouseenter: function() {alert('Mouse entered the div.')},
+        //     mouseleave: function() {alert('Mouse left the div.')},
+        //     click: function() {alert('The div was clicked.')},
+        // })
+
+       //STEP 6
+       $('#div1').css('width','400px').css('height','400px').css('border','black 1px dotted')
+
+        $('#div1').on({
+            mouseenter: function() { $('span').text('Mouse entered the div.')},
+            mouseleave: function() {$('span').text('Mouse left the div.') },
+            click: function() {$('span').text('The div was clicked.') },
+        })
+
+        //STEP 7
+        $('#testLink').on('click', function(){
+        event.preventDefault();
+        alert(event.target.nodeName + ' triggered the event!');
+        $('#testLink').css('font-color', 'red');
+        });
+       
+        //STEP 8
+        $(window).resize(function() {
+            $("#div2").text('Width: ' + $(window).width() + ' Height: ' + $(window).height());
+            
+        });
+
+
+        //STEP 9
+        $('#inputStep9').on({
+            focus: function() { $('#inputStep9').css('background', '#DFE3E6')},
+            blur: function() {$('#inputStep9').css('background', 'white') },
+        })
+
+
+        //STEP 10
+        
+        $(':submit').on('click', function() {
+            event.preventDefault();
+            var name = $('#name').val().trim();
+            var email = $('#email').val().trim();
+
+          if (name == '') {
+                $('#name').css('border','solid red 1px');
+                alert('Please fill out both fields.');
+            } else if (email == '') {
+                $('#email').css('border','solid red 1px');
+                alert('Please fill out both fields.');
+            } else {
+                $('#name').css('border','solid green 1px');
+                $('#email').css('border','solid green 1px');
+            }     
+        })
+
+       
+
+    });
+	</script>
+
+</head>
+
+<body>
+    <button id='button1'>Button 1</button>
+    <br>
+    <button id='button2'>Button 2</button>
+    <br>
+    <button id='button3'>Button 3</button>
+    <br>
+    <button class='pairedButton'>Paired Button 1</button>
+    <button class='pairedButton'>Paired Button 2</button>
+    <div id='div1'></div>
+    <span></span>
+    <br>
+    <a href='https://modulemedia.com/' id='testLink'>[Link for Step 7]</a>
+    <br>
+    <div id='div2'></div>
+    Step 9:<br>
+    <input id='inputStep9'>
+    <br>
+    Step 10 Form:
+    <form>
+        <input type='text' name='name' id='name'>
+        <input type='text' name='email' id='email'>
+        <input type='submit' id='submitButton'>
+    </form>
+
+
+</body>
+</html>
